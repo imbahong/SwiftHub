@@ -63,8 +63,13 @@ target 'SwiftHub' do
     pod 'SnapKit', '~> 5.0'  # https://github.com/SnapKit/SnapKit
 
     # Code Quality
+    
+    #工具栏
     pod 'FLEX', '~> 4.0', :configurations => ['Debug']  # https://github.com/Flipboard/FLEX
+    
+    #类扩展
     pod 'SwifterSwift', '~> 5.0'  # https://github.com/SwifterSwift/SwifterSwift
+    
     pod 'BonMot', '~> 5.0'  # https://github.com/Rightpoint/BonMot
 
     # Logging

@@ -21,9 +21,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
 
+        // 先初始化三方管理者
         let libsManager = LibsManager.shared
         libsManager.setupLibs(with: window)
 
+        // 网络监听
         if Configs.Network.useStaging == true {
             // Logout
             User.removeCurrentUser()
@@ -40,7 +42,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // Disable banners
             libsManager.bannersEnabled.accept(false)
         } else {
+            // 监听网络状态
             connectedToInternet().skip(1).subscribe(onNext: { [weak self] (connected) in
+                // 初始化hud风格
                 var style = ToastManager.shared.style
                 style.backgroundColor = connected ? UIColor.Material.green: UIColor.Material.red
                 let message = connected ? R.string.localizable.toastConnectionBackMessage.key.localized(): R.string.localizable.toastConnectionLostMessage.key.localized()
@@ -51,6 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }).disposed(by: rx.disposeBag)
         }
 
+        // 初始化屏幕
         // Show initial screen
         Application.shared.presentInitialScreen(in: window!)
 
